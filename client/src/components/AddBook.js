@@ -54,10 +54,8 @@ class AddBook extends Component {
           <option key="" >Select an author</option>
             {this.displayAuthors()}
           </select>
-        </div>
-
+        </div>        
         <button>+</button>
-
       </form>
       );
   }
