@@ -25,32 +25,44 @@ class AddBook extends Component {
   }
   submitForm(e) {
     e.preventDefault();
-    this.props.addBookMutation({
-      variables: {
-        name: this.state.name,
-        genre: this.state.genre,
-        authorid: this.state.authorid
-      },
-      refetchQueries: [{query: getBooksQuery}]
-    });
+    if(this.state.name 
+      && this.state.genre 
+      && this.state.authorid){
+      this.props.addBookMutation({
+        variables: {
+          name: this.state.name,
+          genre: this.state.genre,
+          authorid: this.state.authorid
+        },
+        refetchQueries: [{query: getBooksQuery}]
+      });
+      this.refs.form.reset();
+      this.setState({
+        name: '',
+        genre: '',
+        authorid: ''
+      });
+
+      console.log(this.state.name);
+    }
   }
   render() {
     return (
-      <form id="add-book" onSubmit={ this.submitForm.bind(this) }>
+      <form id="add-book" ref="form" onSubmit={ this.submitForm.bind(this) }>
 
         <div className="field">
           <label>Book name:</label>
-          <input type="text" onChange={(e) => this.setState({ name: e.target.value })}/>
+          <input type="text" required="required" onChange={(e) => this.setState({ name: e.target.value })}/>
         </div>
 
         <div className="field">
           <label>Genre:</label>
-          <input type="text" onChange={(e) => this.setState({ genre: e.target.value })}/>
+          <input type="text" required="required" onChange={(e) => this.setState({ genre: e.target.value })}/>
         </div>
 
         <div className="field">
           <label>Author:</label>
-          <select onChange={(e) => this.setState({ authorid: e.target.value })}>
+          <select  onChange={(e) => this.setState({ authorid: e.target.value })}>
           <option key="" >Select an author</option>
             {this.displayAuthors()}
           </select>
