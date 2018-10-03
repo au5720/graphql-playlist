@@ -42,7 +42,7 @@ class AddBook extends Component {
         genre: '',
         authorid: ''
       });
-
+      
       console.log(this.state.name);
     }
   }
